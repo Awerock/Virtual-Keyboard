@@ -39,6 +39,7 @@ const keyboard = {
         this.elements.container.appendChild(this.elements.main);
         this.elements.main.appendChild(this.elements.keysContainer);
         this.elements.container.appendChild(this.elements.descr);
+        this.elements.keysContainer.appendChild(this._crreateKeys());
 
         this.elements.title.textContent = "RSS Виртуальная клавиатура";
         document.body.appendChild(this.elements.container);
@@ -60,7 +61,7 @@ const keyboard = {
         ];
 
         const createIconHTML = (icon_name) => {
-            return `<i class="materila-icons">${icon_name}</i>`;
+            return `<i class="material-icons">${icon_name}</i>`;
         };
 
         keyLayout.forEach(key => {
@@ -136,7 +137,15 @@ const keyboard = {
 
                     break;
             }
+
+            fragment.appendChild(keyElement);
+
+            if (isertLineBreak) {
+                fragment.appendChild(document.createElement("br"));
+            }
         });
+
+        return fragment;
     },
 
     _triggerEvent(HandlerName) {

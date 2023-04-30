@@ -14,6 +14,10 @@
     transition: all 0.4s;
 }
 
+.keyboard__keys {
+    text-align: center;
+}
+
 .title {
     text-align: center;
     font-style: normal;
@@ -85,7 +89,7 @@
 
 .keyboard__key-space {
     max-width: 500px;
-    width: 36%;
+    width: 43.9%;
 }
 
 .keyboard__key-active {
