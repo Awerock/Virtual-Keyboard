@@ -81,6 +81,17 @@ const keyboard = {
                     });
 
                     break;
+
+                case "del":
+                    keyElement.classList.add("keyboard__key");
+                    keyElement.innerHTML = createIconHTML("delete")
+
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value = this.properties.value.substring(0, this.properties.value.length + 1);
+                        this._triggerEvent("oninput");
+                    });
+
+                    break;
                 
                 case "caps":
                     keyElement.classList.add("keyboard__key-widht");
@@ -89,6 +100,28 @@ const keyboard = {
                     keyElement.addEventListener("click", () => {
                         this._toggleCapsLock();
                         keyElement.classList.toggle("keyboard__key-active", this.properties.capsLock);
+                    });
+
+                    break;
+
+                case "enter":
+                    keyElement.classList.add("keyboard__key-widht");
+                    keyElement.innerHTML = createIconHTML("keyboard_return")
+
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value += "\n";
+                        this._triggerEvent("oninput");
+                    });
+
+                    break;
+
+                case "space":
+                    keyElement.classList.add("keyboard__key-space");
+                    keyElement.innerHTML = createIconHTML("space_bar")
+
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value += " ";
+                        this._triggerEvent("oninput");
                     });
 
                     break;
