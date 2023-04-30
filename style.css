@@ -14,6 +14,42 @@
     transition: all 0.4s;
 }
 
+.title {
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 130%;
+    align-items: center;
+    letter-spacing: .06em;
+    color: #545454;
+}
+
+.text-in {
+    display: block;
+    width: 700px;
+    line-height: 1.15;
+    height: 200px;
+    margin: 10px auto 10px;
+    padding: 10px;
+    font-size: 18px;
+    color: #320041;
+    outline-color: #8700b1;
+    border: 1px solid #320041;
+    border-radius: 5px;
+}
+
+.descr {
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 130%;
+    align-items: center;
+    letter-spacing: .06em;
+    color: #545454;
+}
+
 .keyboard__key {
     text-align: center;
 }
