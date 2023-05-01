@@ -41,9 +41,19 @@ const keyboard = {
         this.elements.container.appendChild(this.elements.descr);
         this.elements.keysContainer.appendChild(this._crreateKeys());
 
+        this.elements.keys = this.elements.keysContainer.querySelectorAll(".keyboard__key");
+
         this.elements.title.textContent = "RSS Виртуальная клавиатура";
         document.body.appendChild(this.elements.container);
         this.elements.descr.textContent = "OS Windows / Language Change:  ctrl + alt";
+
+        document.querySelectorAll(".text-in").forEach(element => {
+            element.addEventListener("focus", () => {
+                this.open(element.value, currentValue => {
+                    element.value = currentValue;
+                });
+            });
+        });
     },
 
     _crreateKeys() {
@@ -55,9 +65,9 @@ const keyboard = {
 
         "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "enter",
 
-        "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "∕", "▲", "shiftR",
+        "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "▲", "∕",
 
-        "ctrl", "win", "alt", "space", "alt", "◄", "▼", "►", "ctrl"
+        "ctrl", "win", "alt", "space", "◄", "▼", "►",
         ];
 
         const createIconHTML = (icon_name) => {
@@ -66,7 +76,7 @@ const keyboard = {
 
         keyLayout.forEach(key => {
             const keyElement = document.createElement("button");
-            const isertLineBreak = ["backspace", "del", "enter", "shiftR",].indexOf(key) !== -1;
+            const isertLineBreak = ["backspace", "del", "enter", "∕",].indexOf(key) !== -1;
 
             keyElement.setAttribute("type", "button");
             keyElement.classList.add("keyboard__key");
@@ -127,6 +137,18 @@ const keyboard = {
 
                     break;
 
+                case "shift":
+                    keyElement.textContent = key.toLowerCase();
+                    keyElement.classList.add("keyboard__key-widht");
+                    keyElement.innerHTML = "shift";
+
+                    keyElement.addEventListener("click", () => {
+                        this._toggleCapsLock();
+                        this._triggerEvent("oninput");
+                    });
+
+                    break;
+
                 default:
                     keyElement.textContent = key.toLowerCase();
 
@@ -148,16 +170,30 @@ const keyboard = {
         return fragment;
     },
 
-    _triggerEvent(HandlerName) {
-        console.log("YES!" + HandlerName);
+    _triggerEvent(handlerName) {
+        if (typeof this.eventHandlers[handlerName] == "function") {
+            this.eventHandlers[handlerName](this.properties.value);
+        }
     },
 
     _toggleCapsLock() {
-        console.log("YES! CAPS LOCK");
+        this.properties.capsLock = !this.properties.capsLock;
+
+        for (const key of this.elements.keys) {
+            if (key.childElementCount === 0) {
+                key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+            }
+        }
+
+    },
+
+    open(initialValue, oninput) {
+        this.properties.value = initialValue || "";
+        this.eventHandlers.oninput = oninput;
     }
 };
 
 window.addEventListener("DOMContentLoaded", function() {
     keyboard.init();
     }
-)
+);
