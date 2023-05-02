@@ -47,6 +47,28 @@ const keyboard = {
         document.body.appendChild(this.elements.container);
         this.elements.descr.textContent = "OS Windows / Language Change:  ctrl + alt";
         this.elements.textArea.autofocus = true;
+
+        document.addEventListener("keydown", (event) => {
+            const keyElement = Array.from(this.elements.keys).find((key) => key.textContent === event.key.toLowerCase()
+            );
+        
+            if (keyElement) {
+              this.properties.value += this.properties.capsLock ? event.key.toUpperCase() : event.key.toLowerCase();
+              this._triggerEvent("oninput");
+              keyElement.classList.add("keyboard__key-active");
+            }
+          });
+        
+        document.addEventListener("keyup", (event) => {
+            const keyElement = Array.from(this.elements.keys).find((key) => 
+                key.textContent === event.key.toLowerCase()
+            );
+        
+            if (keyElement) {
+              keyElement.classList.remove("keyboard__key-active");
+            }
+          });
+        
         
         document.querySelectorAll(".text-in").forEach(element => {
             element.addEventListener("focus", () => {
