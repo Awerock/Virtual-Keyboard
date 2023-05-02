@@ -46,7 +46,8 @@ const keyboard = {
         this.elements.title.textContent = "RSS Виртуальная клавиатура";
         document.body.appendChild(this.elements.container);
         this.elements.descr.textContent = "OS Windows / Language Change:  ctrl + alt";
-
+        this.elements.textArea.autofocus = true;
+        
         document.querySelectorAll(".text-in").forEach(element => {
             element.addEventListener("focus", () => {
                 this.open(element.value, currentValue => {
@@ -191,9 +192,14 @@ const keyboard = {
         this.properties.value = initialValue || "";
         this.eventHandlers.oninput = oninput;
     }
+
 };
 
 window.addEventListener("DOMContentLoaded", function() {
     keyboard.init();
     }
 );
+
+window.onload = function() {
+    document.querySelector(".text-in").focus();
+};
